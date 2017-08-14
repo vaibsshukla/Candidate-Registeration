@@ -9,7 +9,11 @@
 	max-width: 300px;	
 }
 
-.btn-gender:FOCUS{
+.btn-gender:FOCUS ,.btn-minority:FOCUS, .btn-disab:FOCUS{
+	background-color: #0471FF;
+	color:white;
+}
+.btn-pressed{	
 	background-color: #0471FF;
 	color:white;
 }
@@ -21,6 +25,18 @@
 .btng-gender{
 	position: relative;
 	float: left;
+}
+.btng-minority{	
+	position: relative;
+	float: left;
+	margin-bottom: 10px;
+	width:100%;
+}
+.btng-disab{	
+	position: relative;
+	float: left;
+	margin-bottom: 10px;
+	width:100%;
 }
 .form-check-label{
 	width:100%;
@@ -34,6 +50,6 @@
 }
 .container{
 }
-#form-2{
+#form-2, #form-3, #form-4{
 	display:none;
 }
