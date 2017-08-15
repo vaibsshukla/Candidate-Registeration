@@ -9,60 +9,48 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PostPersist;
-import javax.persistence.PrePersist;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
-@Entity
-@Table(name="candidate_personal_detail")
 public class CandidatePersonalDetail implements Serializable{
 	
 	private static final long serialVersionUID = -7794296376228595791L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int Id;
 	
-	@Column(name="candiate_full_name")
+	@NotNull(message="Error cannot be null")
 	private String FullName;
 	
-	@Column(name="candiate_father_name")
+	@NotNull
 	private String FatherName;
 	
-	@Column(name="candidate_mother_name")
+	@NotNull
 	private String MotherName;
 	
-	@Column(name="candidate_hsc_roll_no")
+	@NotNull
 	private String HscRollNo;
 	
-	@Column(name="candidate_birth_date")
+	@NotNull
 	private Date BirthDate;
 	
-	@Column(name="candidate_gender")
+	@NotNull
 	private String Gender;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@NotNull
 	private CandidateDetail candidateDetail;
 	
-	@OneToOne(cascade=CascadeType.ALL,optional=true)
-	@PrimaryKeyJoinColumn
-	@NotFound(action=NotFoundAction.IGNORE)
 	private CandidateDisabilityDetail candidateDisabilityDetail;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@NotNull
 	private CandidateContactDetail candidateContactDetail;
 
 	public CandidatePersonalDetail(){};
+
 	public CandidatePersonalDetail(String fullName, String fatherName, String motherName, String hscRollNo,
-			Date birthDate, String gender, CandidateDetail candidateDetail) {
+			Date birthDate, String gender) {
 		super();
 		FullName = fullName;
 		FatherName = fatherName;
@@ -70,9 +58,6 @@ public class CandidatePersonalDetail implements Serializable{
 		HscRollNo = hscRollNo;
 		BirthDate = birthDate;
 		Gender = gender;
-		this.candidateDetail = candidateDetail;
-//		this.candidateDisabilityDetail = candidateDisabilityDetail;
-//		this.candidateContactDetail = candidateContactDetail;
 	}
 	public int getId() {
 		return Id;
@@ -135,8 +120,15 @@ public class CandidatePersonalDetail implements Serializable{
 	public void setCandidateContactDetail(CandidateContactDetail candidateContactDetail) {
 		this.candidateContactDetail = candidateContactDetail;
 	}
+	@Override
+	public String toString() {
+		return "CandidatePersonalDetail [Id=" + Id + ", FullName=" + FullName + ", FatherName=" + FatherName
+				+ ", MotherName=" + MotherName + ", HscRollNo=" + HscRollNo + ", BirthDate=" + BirthDate + ", Gender="
+				+ Gender + ", candidateDetail=" + candidateDetail + ", candidateDisabilityDetail="
+				+ candidateDisabilityDetail + ", candidateContactDetail=" + candidateContactDetail + "]";
+	}
 
-	@PostPersist
+/*	@PostPersist
 	public void initializeCandidateDetailID()
 	{
 		System.out.println("reached here");
@@ -153,13 +145,7 @@ public class CandidatePersonalDetail implements Serializable{
 		}
 		System.out.println("reached here"+Id);
 	}
-
-	@Override
-	public String toString() {
-		return "CandidatePersonalDetail [Id=" + Id + ", FullName=" + FullName + ", FatherName=" + FatherName
-				+ ", MotherName=" + MotherName + ", HscRollNo=" + HscRollNo + ", BirthDate=" + BirthDate + ", Gender="
-				+ Gender + ", candidateDetail=" + candidateDetail +  "]";
-	}
+*/
 
 
 }

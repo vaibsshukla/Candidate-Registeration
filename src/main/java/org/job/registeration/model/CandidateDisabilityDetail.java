@@ -4,41 +4,26 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
-@Entity
-@Table(name="candidate_disability_detail")
 public class CandidateDisabilityDetail {
 	
-	@Id
-	@Column(name="id",nullable=true)
-/*	@GeneratedValue(generator="idgen1")
-	@GenericGenerator(name="idgen1",strategy="foreign",parameters={@Parameter(value="candidatePersonalDetail",name="property")})*/
 	private int Id;
 	
-	@Column(name="candidate_disability_type")
+	@NotNull
 	private int CandidateDisabilityType;
 	
-	@Column(name="candidate_percentage_disability")
+	@NotNull
 	private String CandidateDisabilityPercentage;
 	
-	@Column(name="candidate_disability_certificate_no")
+	@NotNull
 	private String CandidateDisabilityCertificateNo;
 	
-	@Column(name="candidate_certificate_date")
+	@NotNull
 	private Date CertificateDate;
 	
-/*	@OneToOne
-	@PrimaryKeyJoinColumn
-	private CandidatePersonalDetail candidatePersonalDetail;*/
-
 	public CandidateDisabilityDetail(){}
 	
 	public CandidateDisabilityDetail(int candidateDisabilityType, String candidateDisabilityPercentage,
@@ -89,14 +74,6 @@ public class CandidateDisabilityDetail {
 	public void setCertificateDate(Date certificateDate) {
 		CertificateDate = certificateDate;
 	}
-
-/*	public CandidatePersonalDetail getCandidatePersonalDetail() {
-		return candidatePersonalDetail;
-	}
-
-	public void setCandidatePersonalDetail(CandidatePersonalDetail candidatePersonalDetail) {
-		this.candidatePersonalDetail = candidatePersonalDetail;
-	}*/
 
 	@Override
 	public String toString() {

@@ -52,8 +52,8 @@ $(document).ready(function() {
 			$('#form-2').show('slow');
 		});
 		$('#next1').on('click', function() {
-			$('#form-1').hide("fast");
-			$('#form-2').show('slow');
+/*			$('#form-1').hide("fast");
+			$('#form-2').show('slow');*/
 		});
 		$('#next2').on('click', function() {
 			$('#form-2').hide("fast");
