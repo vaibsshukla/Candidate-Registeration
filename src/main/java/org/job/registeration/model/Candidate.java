@@ -1,55 +1,60 @@
 package org.job.registeration.model;
 
-import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PostPersist;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public class CandidatePersonalDetail implements Serializable{
-	
-	private static final long serialVersionUID = -7794296376228595791L;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.junit.validator.ValidateWith;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.validation.annotation.Validated;
 
+
+public class Candidate{
+	
 	private int Id;
 	
-	@NotNull(message="Error cannot be null")
+	@NotEmpty(message="Error cannot be null")
 	private String FullName;
 	
-	@NotNull
+	@NotEmpty
 	private String FatherName;
 	
-	@NotNull
+	@NotEmpty
 	private String MotherName;
 	
-	@NotNull
+	@NotEmpty
 	private String HscRollNo;
 	
 	@NotNull
+	@DateTimeFormat(iso = ISO.DATE,pattern="dd-MM-yyyy")
 	private Date BirthDate;
 	
-	@NotNull
+	@NotEmpty(message="Select Gender")
 	private String Gender;
 	
-	@NotNull
+	@NotNull(groups={Step2.class})
+	@Valid
 	private CandidateDetail candidateDetail;
 	
+	@NotNull(groups={optional.class})
+	@Valid
 	private CandidateDisabilityDetail candidateDisabilityDetail;
 	
-	@NotNull
+	@NotNull(groups={Step1.class})
+	@Valid
 	private CandidateContactDetail candidateContactDetail;
 
-	public CandidatePersonalDetail(){};
+	public interface Step1{}
+	public interface Step2{}
+	public interface Final{}
+	public interface optional{}
+	
+	public Candidate(){};
 
-	public CandidatePersonalDetail(String fullName, String fatherName, String motherName, String hscRollNo,
+	public Candidate(String fullName, String fatherName, String motherName, String hscRollNo,
 			Date birthDate, String gender) {
 		super();
 		FullName = fullName;
@@ -120,14 +125,16 @@ public class CandidatePersonalDetail implements Serializable{
 	public void setCandidateContactDetail(CandidateContactDetail candidateContactDetail) {
 		this.candidateContactDetail = candidateContactDetail;
 	}
+
 	@Override
 	public String toString() {
-		return "CandidatePersonalDetail [Id=" + Id + ", FullName=" + FullName + ", FatherName=" + FatherName
-				+ ", MotherName=" + MotherName + ", HscRollNo=" + HscRollNo + ", BirthDate=" + BirthDate + ", Gender="
-				+ Gender + ", candidateDetail=" + candidateDetail + ", candidateDisabilityDetail="
-				+ candidateDisabilityDetail + ", candidateContactDetail=" + candidateContactDetail + "]";
+		return "Candidate [Id=" + Id + ", FullName=" + FullName + ", FatherName=" + FatherName + ", MotherName="
+				+ MotherName + ", HscRollNo=" + HscRollNo + ", BirthDate=" + BirthDate + ", Gender=" + Gender
+				+ ", candidateDetail=" + candidateDetail + ", candidateDisabilityDetail=" + candidateDisabilityDetail
+				+ ", candidateContactDetail=" + candidateContactDetail + "]";
 	}
 
+	
 /*	@PostPersist
 	public void initializeCandidateDetailID()
 	{

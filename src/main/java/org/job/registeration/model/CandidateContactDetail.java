@@ -2,11 +2,12 @@ package org.job.registeration.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -17,30 +18,35 @@ public class CandidateContactDetail implements Serializable{
 
 	private int Id;
 	
-	@NotNull
+	@NotEmpty
 	private String CandidatePermanentAddress;
 	
-	@NotNull
+	@NotNull(message="Select state")
+	@NumberFormat(style=Style.NUMBER)
+	@Min(1)
 	private int State;
 	
-	@NotNull
+	@NotNull(message="Select City")
+	@NumberFormat(style=Style.NUMBER)
+	@Min(1)
 	private int City;
 	
 	private int CandidateStdCode;
 	
 	private int CandidatePhone;
 	
-	@NotNull
-	private int CandidateMobileNo;
+	@NotEmpty(message="Mobile no canot be empty")
+//	@MobileNo(size=10,message="Invalid Mobile no")
+	private String CandidateMobileNo;
 	
-	@NotNull
+	@NotEmpty(message="Email cannot be empty")
 	private String CandidateEmailId;
 	
 	public CandidateContactDetail(){
 		
 	}
 	public CandidateContactDetail(String candidatePermanentAddress, int state, int city, int candidateStdCode,
-			int candidatePhone, int candidateMobileNo, String candidateEmailId) {
+			int candidatePhone, String candidateMobileNo, String candidateEmailId) {
 		super();
 		CandidatePermanentAddress = candidatePermanentAddress;
 		State = state;
@@ -99,11 +105,11 @@ public class CandidateContactDetail implements Serializable{
 		CandidatePhone = candidatePhone;
 	}
 
-	public int getCandidateMobileNo() {
+	public String getCandidateMobileNo() {
 		return CandidateMobileNo;
 	}
 
-	public void setCandidateMobileNo(int candidateMobileNo) {
+	public void setCandidateMobileNo(String candidateMobileNo) {
 		CandidateMobileNo = candidateMobileNo;
 	}
 

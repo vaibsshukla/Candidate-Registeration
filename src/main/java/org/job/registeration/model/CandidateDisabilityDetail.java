@@ -6,22 +6,34 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 public class CandidateDisabilityDetail {
 	
 	private int Id;
 	
 	@NotNull
-	private int CandidateDisabilityType;
+	@NumberFormat(style=Style.NUMBER)
+	@Min(value=1, message="Select Disabilty type")
+	private Integer CandidateDisabilityType;
 	
 	@NotNull
+	@NumberFormat(style=Style.NUMBER)
+	@Min(value=1, message="Select Disabilty percentage")
 	private String CandidateDisabilityPercentage;
 	
-	@NotNull
+	@NotEmpty(message="Field Cannot be empty")
 	private String CandidateDisabilityCertificateNo;
 	
 	@NotNull
+	@DateTimeFormat(iso = ISO.DATE,pattern="dd-MM-yyyy")
 	private Date CertificateDate;
 	
 	public CandidateDisabilityDetail(){}
@@ -43,11 +55,11 @@ public class CandidateDisabilityDetail {
 		Id = id;
 	}
 
-	public int getCandidateDisabilityType() {
+	public Integer getCandidateDisabilityType() {
 		return CandidateDisabilityType;
 	}
 
-	public void setCandidateDisabilityType(int candidateDisabilityType) {
+	public void setCandidateDisabilityType(Integer candidateDisabilityType) {
 		CandidateDisabilityType = candidateDisabilityType;
 	}
 

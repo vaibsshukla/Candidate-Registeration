@@ -1,6 +1,8 @@
 package org.job.registeration.config;
 
 import org.apache.log4j.Logger;
+import org.job.registeration.interceptors.RegisterInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,6 +11,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -19,6 +22,10 @@ import org.springframework.web.servlet.view.JstlView;
 public class SpringMvcConfig extends WebMvcConfigurerAdapter{
 	
 	private static final Logger logger = Logger.getLogger(SpringMvcConfig.class);
+	
+	@Autowired
+	private RegisterInterceptor registerInterceptor;
+	
 	@Bean
 	public ViewResolver viewResolver(){
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -40,4 +47,11 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter{
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 	        configurer.enable();
 	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(registerInterceptor).addPathPatterns("/register");
+	}
+	
+	
 }

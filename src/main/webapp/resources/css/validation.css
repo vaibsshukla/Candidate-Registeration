@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+.invalid{
+	color: Red;
+}
+.invalid-control{
+	border-color: red;
+}
+.invalid-div{
+    border:1px solid red;
+}
+.dem{
+	background-color: blue;
+}
